@@ -6,7 +6,9 @@ import com.GGI.Forged.Forged;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
-		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		new LwjglApplication(new Forged(), config);
+		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
+		 cfg.width = 1200;
+	     cfg.height = 675;
+		new LwjglApplication(new Forged(), cfg);
 	}
 }

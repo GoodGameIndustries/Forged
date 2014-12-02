@@ -1,27 +1,64 @@
 package com.GGI.Forged;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
-public class Forged extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
+import com.GGI.Assets.Assets;
+import com.GGI.Screen.GameScreen;
+import com.GGI.Screen.MainMenuScreen;
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Net.Protocol;
+import com.badlogic.gdx.graphics.GL30;
+import com.badlogic.gdx.net.Socket;
+import com.badlogic.gdx.net.SocketHints;
+
+public class Forged extends Game {
+	public Assets assets;
+	Socket sClient;
+	Socket rClient;
+	
+	public Forged(){
+
+	}
 	
 	@Override
 	public void create () {
-		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+		
+	    assets= new Assets(this);
+		setScreen(new MainMenuScreen(this));
+		SocketHints hints = new SocketHints();
+		sClient = Gdx.net.newClientSocket(Protocol.TCP, "localhost", 4441, hints);
+		rClient = Gdx.net.newClientSocket(Protocol.TCP, "localhost", 4442, hints);
+		try {
+			sClient.getOutputStream().write("Connect\n".getBytes());
+			String response = new BufferedReader(new InputStreamReader(rClient.getInputStream())).readLine();
+			System.out.println(response);
+		} catch (IOException e) {
+			System.out.println("an error occured");
+		}
+		
+		new Thread(new Reader(this,rClient)).start();
+		
+		//while(true){
+			//send("test\n");
+		//}
+		//String response = new BufferedReader(new InputStreamReader(rClient.getInputStream())).readLine();
+		//System.out.println(response);
+		
+		
 	}
 
-	@Override
-	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
+	
+	
+	public void send(String s){
+		try {
+			sClient.getOutputStream().write(s.getBytes());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 }
