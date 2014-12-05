@@ -29,8 +29,8 @@ public class Forged extends Game {
 	    assets= new Assets(this);
 		setScreen(new MainMenuScreen(this));
 		SocketHints hints = new SocketHints();
-		sClient = Gdx.net.newClientSocket(Protocol.TCP, "localhost", 4441, hints);
-		rClient = Gdx.net.newClientSocket(Protocol.TCP, "localhost", 4442, hints);
+		sClient = Gdx.net.newClientSocket(Protocol.TCP, "192.168.1.100", 4441, hints);
+		rClient = Gdx.net.newClientSocket(Protocol.TCP, "192.168.1.100", 4442, hints);
 		try {
 			sClient.getOutputStream().write("Connect\n".getBytes());
 			String response = new BufferedReader(new InputStreamReader(rClient.getInputStream())).readLine();

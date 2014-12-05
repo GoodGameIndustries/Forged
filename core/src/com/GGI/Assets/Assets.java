@@ -9,6 +9,7 @@ import com.GGI.Forged.Forged;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeBitmapFontData;
 
@@ -22,7 +23,7 @@ public class Assets {
 	
 	/**Tool Tab Textures*/public Texture inventoryTab,statsTab;
 	/**Stats Textures*/public Texture attack,strength,defense,health,woodCutting,cooking,fishing,mining,forging,gathering;
-	/**UI Textures*/public Texture textBox;
+	/**UI Textures*/public TextureRegion textBox;
 	
 	/**Databases*/
 	public Stats stats;
@@ -45,7 +46,7 @@ public class Assets {
 		font.setColor(1,1,1,1);
 		
 		/**Load UI*/
-		textBox = new Texture(Gdx.files.internal("UI/TextBox.png"));
+		textBox = new TextureRegion(new Texture(Gdx.files.internal("UI/TextBox.png")));
 		
 	}
 	
