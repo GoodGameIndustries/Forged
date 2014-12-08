@@ -6,6 +6,7 @@ package com.GGI.Assets;
 import sun.font.TrueTypeFont;
 
 import com.GGI.Forged.Forged;
+import com.GGI.UI.Button.Button;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -33,13 +34,17 @@ public class Assets {
 	public BitmapFont font;
 	public static final String FONT_CHARACTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789][_!$%#@|\\/?-+=()*&.;,{}\"´`'<>";
 	
+	/**Buttons*/
+	public Button login;
+	public Button createAccount;
+	
 	
 	public Assets(Forged f){
 		this.f=f;
 		
 		//initialize font
 		
-		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Neou-Thin.ttf"));
+		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Neou-Bold.ttf"));
 		
 		font = generator.generateFont(150,FONT_CHARACTERS,false);
 		generator.dispose();
@@ -47,6 +52,10 @@ public class Assets {
 		
 		/**Load UI*/
 		textBox = new TextureRegion(new Texture(Gdx.files.internal("UI/TextBox.png")));
+		
+		/**Load Buttons*/
+		login = new Button("UI/Buttons/loginUp.png","UI/Buttons/loginDown.png",.45f,.21f,.1f,.08f);
+		createAccount = new Button("UI/Buttons/createAccountUp.png","UI/Buttons/createAccountDown.png",.45f,.11f,.1f,.08f);
 		
 	}
 	

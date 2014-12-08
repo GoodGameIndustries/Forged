@@ -54,6 +54,7 @@ public class Forged extends Game {
 	
 	public void send(String s){
 		try {
+			s+="\n";
 			sClient.getOutputStream().write(s.getBytes());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
