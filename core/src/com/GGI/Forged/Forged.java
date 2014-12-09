@@ -5,11 +5,13 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import com.GGI.Assets.Assets;
+import com.GGI.Screen.CharacterCreationScreen;
 import com.GGI.Screen.GameScreen;
 import com.GGI.Screen.MainMenuScreen;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Net.Protocol;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.net.Socket;
 import com.badlogic.gdx.net.SocketHints;
@@ -18,6 +20,7 @@ public class Forged extends Game {
 	public Assets assets;
 	Socket sClient;
 	Socket rClient;
+	public Screen nextScreen=null;
 	
 	public Forged(){
 
@@ -29,8 +32,8 @@ public class Forged extends Game {
 	    assets= new Assets(this);
 		setScreen(new MainMenuScreen(this));
 		SocketHints hints = new SocketHints();
-		sClient = Gdx.net.newClientSocket(Protocol.TCP, "192.168.1.100", 4441, hints);
-		rClient = Gdx.net.newClientSocket(Protocol.TCP, "192.168.1.100", 4442, hints);
+		sClient = Gdx.net.newClientSocket(Protocol.TCP, "localhost", 4441, hints);
+		rClient = Gdx.net.newClientSocket(Protocol.TCP, "localhost", 4442, hints);
 		try {
 			sClient.getOutputStream().write("Connect\n".getBytes());
 			String response = new BufferedReader(new InputStreamReader(rClient.getInputStream())).readLine();
@@ -62,4 +65,6 @@ public class Forged extends Game {
 		}
 		
 	}
+	
+	
 }

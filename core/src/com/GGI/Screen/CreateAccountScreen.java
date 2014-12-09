@@ -35,7 +35,7 @@ public class CreateAccountScreen implements Screen,InputProcessor{
 	private int pointer=0;
 	
 	public CreateAccountScreen(Forged f) {
-		this.f=f;
+		
 		this.f=f;
 		font = f.assets.font;
 		font.setScale(w /6000);
@@ -66,6 +66,10 @@ public class CreateAccountScreen implements Screen,InputProcessor{
 
 	@Override
 	public void render(float delta) {
+		if(f.nextScreen!=null){
+			f.setScreen(f.nextScreen);
+			f.nextScreen=null;
+		}
 		e=e.replaceAll("\\p{Cntrl}","");
 		u=u.replaceAll("\\p{Cntrl}","");
 		p=p.replaceAll("\\p{Cntrl}","");

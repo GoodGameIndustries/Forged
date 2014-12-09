@@ -37,6 +37,16 @@ public class Assets {
 	/**Buttons*/
 	public Button login;
 	public Button createAccount;
+	public Button hairColorRight;
+	public Button hairColorLeft;
+	public Button hairRight;
+	public Button hairLeft;
+	public Button skinRight;
+	public Button skinLeft;
+	public Button chestRight;
+	public Button chestLeft;
+	public Button legsRight;
+	public Button legsLeft;
 	
 	
 	public Assets(Forged f){
@@ -56,6 +66,17 @@ public class Assets {
 		/**Load Buttons*/
 		login = new Button("UI/Buttons/loginUp.png","UI/Buttons/loginDown.png",.45f,.21f,.1f,.08f);
 		createAccount = new Button("UI/Buttons/createAccountUp.png","UI/Buttons/createAccountDown.png",.45f,.11f,.1f,.08f);
+		hairColorRight=new Button("UI/Buttons/rightArrowUp.png","UI/Buttons/rightArrowDown.png",.8f,.7f,.1f,.1f);
+		hairColorLeft=new Button("UI/Buttons/leftArrowUp.png","UI/Buttons/leftArrowDown.png",.4f,.7f,.1f,.1f);
+		hairRight=new Button("UI/Buttons/rightArrowUp.png","UI/Buttons/rightArrowDown.png",.8f,.6f,.1f,.1f);
+		hairLeft=new Button("UI/Buttons/leftArrowUp.png","UI/Buttons/leftArrowDown.png",.4f,.6f,.1f,.1f);
+		skinRight=new Button("UI/Buttons/rightArrowUp.png","UI/Buttons/rightArrowDown.png",.8f,.5f,.1f,.1f);
+		skinLeft=new Button("UI/Buttons/leftArrowUp.png","UI/Buttons/leftArrowDown.png",.4f,.5f,.1f,.1f);
+		chestRight=new Button("UI/Buttons/rightArrowUp.png","UI/Buttons/rightArrowDown.png",.8f,.4f,.1f,.1f);
+		chestLeft=new Button("UI/Buttons/leftArrowUp.png","UI/Buttons/leftArrowDown.png",.4f,.4f,.1f,.1f);
+		legsRight=new Button("UI/Buttons/rightArrowUp.png","UI/Buttons/rightArrowDown.png",.8f,.3f,.1f,.1f);
+		legsLeft=new Button("UI/Buttons/leftArrowUp.png","UI/Buttons/leftArrowDown.png",.4f,.3f,.1f,.1f);
+		
 		
 	}
 	
