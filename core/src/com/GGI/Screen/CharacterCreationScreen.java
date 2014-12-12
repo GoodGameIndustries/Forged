@@ -2,21 +2,34 @@ package com.GGI.Screen;
 
 import com.GGI.Forged.Forged;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL30;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Rectangle;
 
-public class CharacterCreationScreen implements Screen{
+public class CharacterCreationScreen implements Screen,InputProcessor{
 
 	public Forged f;
 	public SpriteBatch pic;
 	private BitmapFont fnt;
 	private float w=Gdx.graphics.getWidth(),h=Gdx.graphics.getHeight();
+	private int hairS=0;
+	private int hairC=0;
+	private int skin=0;
+	private int chest=0;
+	private int legs=0;
+	
+	private float width=.5f*w,height=.5f*w;
+	
 	public CharacterCreationScreen(Forged f){
 		this.f=f;
 		fnt=f.assets.font;
 		fnt.setScale(w/6000);
+		
 		
 	}
 	
@@ -43,7 +56,13 @@ public class CharacterCreationScreen implements Screen{
 		fnt.draw(pic, "Shirt Style", .1f*w, .475f*h);
 		fnt.draw(pic, "Pant Style", .1f*w, .375f*h);
 		
+		pic.draw(f.assets.legs[legs],(float).65*w-(width/2),(float).55*h-(height/2),width,height);
+		pic.draw(f.assets.chest[chest],(float).65*w-(width/2),(float).55*h-(height/2),width,height);
+		pic.draw(f.assets.skin[skin],(float).65*w-(width/2),(float).55*h-(height/2),width,height);
+		pic.draw(f.assets.hair[hairC][hairS],(float).65*w-(width/2),(float).55*h-(height/2),width,height);
 		
+		pic.draw(f.assets.createCharacter.getState(),f.assets.createCharacter.bounds.x,f.assets.createCharacter.bounds.y,f.assets.createCharacter.bounds.width,f.assets.createCharacter.bounds.height);
+
 		pic.end();
 		
 	}
@@ -57,7 +76,7 @@ public class CharacterCreationScreen implements Screen{
 	@Override
 	public void show() {
 		pic = new SpriteBatch();
-		
+		Gdx.input.setInputProcessor(this);
 	}
 
 	@Override
@@ -82,6 +101,164 @@ public class CharacterCreationScreen implements Screen{
 	public void dispose() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public boolean keyDown(int keycode) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean keyUp(int keycode) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean keyTyped(char character) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		screenY=(int) (h-screenY);
+		Rectangle touch = new Rectangle(screenX,screenY,1,1);
+		//adding
+		if(Intersector.overlaps(touch, f.assets.hairColorRight.bounds)){
+			f.assets.hairColorRight.press();
+		}
+		else if(Intersector.overlaps(touch, f.assets.hairRight.bounds)){
+			f.assets.hairRight.press();
+		}
+		else if(Intersector.overlaps(touch, f.assets.hairRight.bounds)){
+			f.assets.skinRight.press();
+		}
+		else if(Intersector.overlaps(touch, f.assets.hairRight.bounds)){
+			f.assets.chestRight.press();
+		}
+		else if(Intersector.overlaps(touch, f.assets.hairRight.bounds)){
+			f.assets.legsRight.press();
+		}
+		
+		//subtracting
+		if(Intersector.overlaps(touch, f.assets.hairColorLeft.bounds)){
+			f.assets.hairColorLeft.press();
+		}
+		else if(Intersector.overlaps(touch, f.assets.hairLeft.bounds)){
+			f.assets.hairLeft.press();
+		}
+		else if(Intersector.overlaps(touch, f.assets.hairLeft.bounds)){
+			f.assets.skinLeft.press();
+		}
+		else if(Intersector.overlaps(touch, f.assets.hairLeft.bounds)){
+			f.assets.chestLeft.press();
+		}
+		else if(Intersector.overlaps(touch, f.assets.hairLeft.bounds)){
+			f.assets.legsLeft.press();
+		}
+			
+		
+		return true;
+	}
+
+	@Override
+	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+		f.assets.hairColorRight.release();
+		f.assets.hairColorLeft.release();
+		f.assets.hairRight.release();
+		f.assets.hairLeft.release();
+		f.assets.skinRight.release();
+		f.assets.skinLeft.release();
+		f.assets.chestRight.release();
+		f.assets.chestLeft.release();
+		f.assets.legsRight.release();
+		f.assets.legsLeft.release();
+		
+		screenY=(int) (h-screenY);
+		Rectangle touch = new Rectangle(screenX,screenY,1,1);
+		//adding
+				if(Intersector.overlaps(touch, f.assets.hairColorRight.bounds)){
+					hairC++;
+					if(hairC>=f.assets.hair.length){
+						hairC=0;
+					}
+				}
+				else if(Intersector.overlaps(touch, f.assets.hairRight.bounds)){
+					hairS++;
+					if(hairS>=f.assets.hair[0].length){
+						hairS=0;
+					}
+				}
+				else if(Intersector.overlaps(touch, f.assets.skinRight.bounds)){
+					skin++;
+					if(skin>=f.assets.skin.length){
+						skin=0;
+					}
+				}
+				else if(Intersector.overlaps(touch, f.assets.chestRight.bounds)){
+					chest++;
+					if(chest>=f.assets.chest.length){
+						chest=0;
+					}
+				}
+				else if(Intersector.overlaps(touch, f.assets.legsRight.bounds)){
+					legs++;
+					if(legs>=f.assets.legs.length){
+						legs=0;
+					}
+				}
+		//subtracting
+				if(Intersector.overlaps(touch, f.assets.hairColorLeft.bounds)){
+					hairC--;
+					if(hairC<0){
+						hairC=f.assets.hair.length-1;
+					}
+				}
+				else if(Intersector.overlaps(touch, f.assets.hairLeft.bounds)){
+					hairS--;
+					if(hairS<0){
+						hairS=f.assets.hair[0].length-1;
+					}
+				}
+				else if(Intersector.overlaps(touch, f.assets.skinLeft.bounds)){
+					skin--;
+					if(skin<0){
+						skin=f.assets.skin.length-1;
+					}
+				}
+				else if(Intersector.overlaps(touch, f.assets.chestLeft.bounds)){
+					chest--;
+					if(chest<0){
+						chest=f.assets.chest.length-1;
+					}
+				}
+				else if(Intersector.overlaps(touch, f.assets.legsLeft.bounds)){
+					legs--;
+					if(legs<0){
+						legs=f.assets.legs.length-1;
+					}
+				}
+		return true;
+	}
+
+	@Override
+	public boolean touchDragged(int screenX, int screenY, int pointer) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean mouseMoved(int screenX, int screenY) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean scrolled(int amount) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }

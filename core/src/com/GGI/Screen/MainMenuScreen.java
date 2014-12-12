@@ -6,6 +6,7 @@ package com.GGI.Screen;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 
+
 import com.GGI.Forged.Forged;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
@@ -44,6 +45,8 @@ public class MainMenuScreen implements Screen, InputProcessor{
 	public TextFieldStyle s;
 	public int pointer = 0;
 	public float oX=0f,oY=0f;
+	public boolean invalid;
+	
 	
 	public MainMenuScreen(Forged f){
 		this.f=f;
@@ -88,6 +91,15 @@ public class MainMenuScreen implements Screen, InputProcessor{
 		font.draw(pic, "Username", ((.5f*w)- (font.getBounds("Username").width/2))+oX, ((.75f*h)- (font.getBounds("Username").height/2))+oY);
 		font.draw(pic, "Password", ((.5f*w)- (font.getBounds("Password").width/2))+oX, ((.55f*h)- (font.getBounds("Password").height/2))+oY);
 		
+		
+		 if(invalid){
+			font.setColor(Color.RED);
+			font.setScale(w/8000);
+			font.draw(pic,"The username or password is incorrect",((w/2)-(font.getBounds("The username or password is incorrect").width/2))+oX,(.325f*h)+oY);
+			font.setScale(w/4000);
+			font.setColor(Color.WHITE);
+		}
+		
 		user.setBounds((.3f*w)+oX,(.54f*h)+oY,.4f*w,.1f*h);
 		pass.setBounds((.3f*w)+oX,(.34f*h)+oY,.4f*w,.1f*h);
 		
@@ -100,6 +112,9 @@ public class MainMenuScreen implements Screen, InputProcessor{
 		
 		pic.draw(f.assets.login.getState(),f.assets.login.bounds.x,f.assets.login.bounds.y,f.assets.login.bounds.width,f.assets.login.bounds.height);
 		pic.draw(f.assets.createAccount.getState(),f.assets.createAccount.bounds.x,f.assets.createAccount.bounds.y,f.assets.createAccount.bounds.width,f.assets.createAccount.bounds.height);
+		
+	
+		
 		pic.end();
 		
 		

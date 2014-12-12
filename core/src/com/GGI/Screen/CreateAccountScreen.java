@@ -1,5 +1,6 @@
 package com.GGI.Screen;
 
+
 import com.GGI.Forged.Forged;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
@@ -33,6 +34,9 @@ public class CreateAccountScreen implements Screen,InputProcessor{
 	private float oX;
 	private float oY;
 	private int pointer=0;
+	private boolean tooShort = false;
+	public boolean accountTaken=false;
+	
 	
 	public CreateAccountScreen(Forged f) {
 		
@@ -66,6 +70,7 @@ public class CreateAccountScreen implements Screen,InputProcessor{
 
 	@Override
 	public void render(float delta) {
+		
 		if(f.nextScreen!=null){
 			f.setScreen(f.nextScreen);
 			f.nextScreen=null;
@@ -86,6 +91,21 @@ public class CreateAccountScreen implements Screen,InputProcessor{
 	font.draw(pic, "Username", .12f*w+oX, .75f*h+oY);
 	font.draw(pic, "Password", .12f*w+oX, .55f*h+oY);
 	font.draw(pic, "Email", .12f*w+oX, .95f*h+oY);
+	
+	if(tooShort){
+		font.setColor(Color.RED);
+		font.setScale(w/8000);
+		font.draw(pic,"All fields must contain at least 4 characters",(.11f*w)+oX,(.35f*h)+oY);
+		font.setScale(w/4000);
+		font.setColor(Color.WHITE);
+	}
+	else if(accountTaken){
+		font.setColor(Color.RED);
+		font.setScale(w/8000);
+		font.draw(pic,"The username you have entered is already in use",(.11f*w)+oX,(.35f*h)+oY);
+		font.setScale(w/4000);
+		font.setColor(Color.WHITE);
+	}
 		
 		user.setBounds((.1f*w)+oX,(.6f*h)+oY,.5f*w,.1f*h);
 		pass.setBounds((.1f*w)+oX,(.4f*h)+oY,.5f*w,.1f*h);
@@ -99,6 +119,8 @@ public class CreateAccountScreen implements Screen,InputProcessor{
 		//pic.draw(f.assets.textBox,.3f*w,.39f*h,.4f*w,.1f*h);
 		//pic.draw(f.assets.textBox,.3f*w,.19f*h,.4f*w,.1f*h);
 		pic.draw(f.assets.createAccount.getState(),f.assets.createAccount.bounds.x,f.assets.createAccount.bounds.y,f.assets.createAccount.bounds.width,f.assets.createAccount.bounds.height);
+		pic.draw(f.assets.back.getState(),f.assets.back.bounds.x,f.assets.back.bounds.y,f.assets.back.bounds.width,f.assets.back.bounds.height);
+		
 		
 		
 		pic.end();
@@ -200,6 +222,9 @@ public boolean keyTyped(char character) {
 				if(Intersector.overlaps(touch, f.assets.createAccount.bounds)){
 					f.assets.createAccount.press();
 				}
+				else if(Intersector.overlaps(touch, f.assets.back.bounds)){
+					f.assets.back.press();
+				}
 			}
 		return true;
 	}
@@ -207,6 +232,7 @@ public boolean keyTyped(char character) {
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 		f.assets.createAccount.release();
+		f.assets.back.release();
 		
 		screenY=(int) (h-screenY);
 		Rectangle touch = new Rectangle(screenX,screenY,1,1);
@@ -229,7 +255,16 @@ public boolean keyTyped(char character) {
 				oY=-.2f*h;
 			}
 			else if(Intersector.overlaps(touch, f.assets.createAccount.bounds)){
+				if(e.length()>3&&u.length()>3&&p.length()>3){
 				f.send("createAccount:"+e+":"+u+":"+p);
+				}
+				else{
+					tooShort=true;
+				}
+			}
+			else if(Intersector.overlaps(touch, f.assets.back.bounds)){
+				f.assets.createAccount.bounds=new Rectangle(.45f*w,.08f*h,.1f*w,.08f*h);
+				f.setScreen(new MainMenuScreen(f));
 			}
 			
 		}
