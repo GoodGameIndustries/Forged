@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 
 import com.GGI.Screen.CharacterCreationScreen;
 import com.GGI.Screen.CreateAccountScreen;
+import com.GGI.Screen.MOTDScreen;
 import com.GGI.Screen.MainMenuScreen;
 import com.badlogic.gdx.net.Socket;
 
@@ -43,6 +44,10 @@ public class Reader implements Runnable{
 						CreateAccountScreen s = (CreateAccountScreen) f.getScreen();
 						s.accountTaken=true;
 					}
+				}
+				else if(message.startsWith("Online")){
+					String[] breakDown = message.split(":");
+					f.nextScreen=new MOTDScreen(f,breakDown[1],breakDown[2]);
 				}
 			} catch (IOException e) {
 				

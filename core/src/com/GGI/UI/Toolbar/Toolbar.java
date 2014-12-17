@@ -8,13 +8,14 @@ import java.util.ArrayList;
 import com.GGI.Assets.Assets;
 import com.GGI.UI.Toolbar.ToolScreens.InventoryToolScreen;
 import com.GGI.UI.Toolbar.ToolScreens.StatsToolScreen;
+import com.GGI.UI.Toolset.StandardButtons;
 
 /**
  * @author Emmett Deen
  *
  */
 public class Toolbar {
-	public ArrayList<ToolTab> tabs = new ArrayList<ToolTab>();
+	public Toolset toolSet = new StandardButtons();
 	public Assets a;
 	
 	public Toolbar(Assets a){
@@ -23,22 +24,6 @@ public class Toolbar {
 	}
 
 	private void setup() {
-		//add Settings
-		//end add Settings
-		
-		//add Friends
-		//end add Friends
-		
-		//add Map
-		//end add Map
-		
-		//add Stats
-		tabs.add(new ToolTab(a.statsTab,new StatsToolScreen(a)));
-		//end add Stats
-		
-		//add Inventory
-		tabs.add(new ToolTab(a.inventoryTab,new InventoryToolScreen(a)));
-		//end add Inventory
 		
 	}
 	

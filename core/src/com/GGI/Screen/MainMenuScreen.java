@@ -75,6 +75,11 @@ public class MainMenuScreen implements Screen, InputProcessor{
 	
 	@Override
 	public void render(float delta) {
+		if(f.nextScreen!=null){
+			f.setScreen(f.nextScreen);
+			f.nextScreen=null;
+		}
+		
 		u=u.replaceAll("\\p{Cntrl}","");
 		p=p.replaceAll("\\p{Cntrl}","");
 		
