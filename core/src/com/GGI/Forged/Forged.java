@@ -43,7 +43,7 @@ public class Forged extends Game {
 		}
 		
 		new Thread(new Reader(this,rClient)).start();
-		send("Connect");
+		
 		
 		//while(true){
 			//send("test\n");
